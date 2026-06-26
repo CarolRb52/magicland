@@ -26,7 +26,6 @@ interface PersonalData {
   phone: string;
 }
 
-// Solo errores de campos personales + campos de tarjeta (sin guardar valores de tarjeta en estado)
 type PersonalErrors = Partial<Record<keyof PersonalData, string>>;
 type CardErrors = Partial<Record<'number' | 'expiry' | 'cvv', string>>;
 type FieldErrors = PersonalErrors & CardErrors;
@@ -38,7 +37,7 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
   const [bookingCode] = useState(() => generateBookingCode());
   const topRef = useRef<HTMLDivElement>(null);
 
-  // Refs para inputs de tarjeta — los datos nunca pasan por el estado de React
+  // refs de tarjeta (no controlados)
   const cardNumberRef = useRef<HTMLInputElement>(null);
   const cardExpiryRef = useRef<HTMLInputElement>(null);
   const cardCvvRef = useRef<HTMLInputElement>(null);
@@ -64,7 +63,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
 
   function validateStep2(): FieldErrors {
     const e: FieldErrors = {};
-    // Leemos los refs una sola vez para validar — nunca almacenamos en estado
     const digits = (cardNumberRef.current?.value ?? '').replace(/\s/g, '');
     const expiry = cardExpiryRef.current?.value ?? '';
     const cvv = cardCvvRef.current?.value ?? '';
@@ -89,7 +87,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
     }
     setErrors({});
 
-    // Al avanzar del paso 2, limpiamos los campos de tarjeta del DOM
     if (step === 2) {
       if (cardNumberRef.current) cardNumberRef.current.value = '';
       if (cardExpiryRef.current) cardExpiryRef.current.value = '';
@@ -169,7 +166,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
           </div>
         </div>
 
-        {/* Ancla de scroll al cambiar de paso */}
         <div ref={topRef} />
 
         <div className="grid lg:grid-cols-3 gap-6 p-6">
@@ -178,7 +174,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
           <div className="lg:col-span-2">
 
             {step === 3 ? (
-              /* Paso 3: confirmación */
               <div className="text-center bg-white/60 backdrop-blur-md rounded-xl p-8 border border-gray-200/50">
                 <div className="w-20 h-20 bg-[#FFC3C6]/30 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#FF5E66]/30">
                   <CheckCircle className="w-12 h-12 text-[#F6131E]" />
@@ -262,18 +257,15 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
                   </>
                 )}
 
-                {/* Paso 2: pago — inputs NO controlados (sin estado React) */}
+                {/* Paso 2: pago */}
                 {step === 2 && (
                   <>
                     <h3 className="text-xl font-bold text-gray-900">Datos de Pago</h3>
 
-                    {/* Aviso de entorno demo */}
                     <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
                       <Lock className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                      <p className="text-xs text-amber-700 leading-relaxed">
-                        <strong>Entorno de demo.</strong> No introduzcas datos reales de tarjeta.
-                        En producción, este formulario sería reemplazado por Stripe Elements u otro
-                        proveedor certificado PCI-DSS que nunca expone los datos al frontend.
+                      <p className="text-xs text-amber-700">
+                        Entorno de demo — no uses datos reales de tarjeta.
                       </p>
                     </div>
 
@@ -281,10 +273,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
                       <label className="flex items-center gap-2 text-gray-700 font-medium mb-2">
                         <CreditCard className="w-5 h-5 text-[#F6131E]" /> Número de Tarjeta
                       </label>
-                      {/*
-                        Input NO controlado: ref en lugar de value+onChange.
-                        Los datos de tarjeta nunca se almacenan en el estado de React.
-                      */}
                       <input
                         ref={cardNumberRef}
                         type="text"
@@ -349,7 +337,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
                   </>
                 )}
 
-                {/* Botón siguiente / pagar */}
                 <button
                   onClick={handleNext}
                   className="w-full py-4 bg-gradient-to-r from-[#F6131E] to-[#CF0610] text-white rounded-xl font-bold text-lg hover:from-[#CF0610] hover:to-[#AB0911] transition-all shadow-lg mt-2"
@@ -424,7 +411,6 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose }: Props) 
   );
 }
 
-/* Componente pequeño para mensajes de error de campo */
 function FieldError({ msg }: { msg: string }) {
   return (
     <p className="flex items-center gap-1 mt-1 text-xs text-red-500">
