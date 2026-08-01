@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MagicLand — Compra de Tickets</title>
+    <meta name="description" content="Compra tus entradas para MagicLand, el parque de atracciones más emocionante. Elige tus tickets, selecciona la fecha y disfruta." />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src  'self';
+        style-src   'self' 'unsafe-inline';
+        img-src     'self' data: https://images.unsplash.com;
+        font-src    'self';
+        connect-src 'self';
+        object-src  'none';
+        frame-ancestors 'none';
+        base-uri    'self';
+        form-action 'self';
+      "
+    />
+
+    <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+
+  </head>
+
+  <body>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+  </body>
+</html>
