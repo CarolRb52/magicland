@@ -227,6 +227,7 @@ function TicketCard({ id, qty, adultCount, onInc, onDec }: CardProps) {
         <div className="flex justify-center mb-2">{icon}</div>
         <div className="font-black text-lg">{t.label}</div>
         <div className="font-black text-2xl mt-1">{t.price.toFixed(2).replace('.', ',')}€</div>
+        <div className="text-xs opacity-75 mt-0.5">IVA incluido</div>
       </div>
 
       {/* Features */}
