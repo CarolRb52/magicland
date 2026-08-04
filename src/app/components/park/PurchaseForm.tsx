@@ -122,6 +122,12 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose, onSuccess
     <div className="min-h-screen bg-[#e5edf9]">
       <div className="max-w-6xl mx-auto px-6">
         <ProgressBar step={2} />
+        <button
+          onClick={onClose}
+          className="flex items-center gap-1.5 text-sm font-semibold text-gray-500 hover:text-gray-800 mb-4 transition-colors"
+        >
+          ← Volver a Tickets
+        </button>
 
         <div className="grid md:grid-cols-5 gap-6 pb-16">
           <div className="md:col-span-2">
