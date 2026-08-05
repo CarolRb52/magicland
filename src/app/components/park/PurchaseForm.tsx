@@ -151,18 +151,28 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose, onSuccess
 
               <div className="border-t border-gray-100 pt-3 space-y-2 text-sm mb-4">
                 <div className="flex justify-between text-gray-500">
-                  <span>Subtotal</span><span>{subtotal.toFixed(2).replace('.', ',')}€</span>
-                </div>
-                <div className="flex justify-between text-gray-500">
-                  <span>Gastos de gestión</span><span>{MANAGEMENT_FEE.toFixed(2).replace('.', ',')}€</span>
-                </div>
-                <div className="flex justify-between text-gray-500">
-                  <span>IVA (21%)</span><span>{iva.toFixed(2).replace('.', ',')}€</span>
-                </div>
-                <div className="flex justify-between font-black text-gray-900 text-base pt-2 border-t border-gray-100">
-                  <span>Total</span>
-                  <span className="text-[#e8003a]">{total.toFixed(2).replace('.', ',')}€</span>
-                </div>
+               <span>Subtotal <span className="text-gray-400">(IVA incl.)</span></span>
+               <span>{subtotal.toFixed(2).replace('.', ',')}€</span>
+           </div>
+
+            <div className="flex justify-between text-gray-500">
+            <span>Gastos de gestión</span>
+            <span>{MANAGEMENT_FEE.toFixed(2).replace('.', ',')}€</span>
+          </div>
+                <p className="text-xs text-gray-400 -mt-1">
+                   Cargo único por emisión y envío digital de las entradas.
+                </p>
+
+         <div className="flex justify-between font-black text-gray-900 text-base pt-2 border-t border-gray-100">
+           <span>Total</span>
+           <span className="text-[#e8003a]">{total.toFixed(2).replace('.', ',')}€</span>
+           </div>
+
+  <div className="flex justify-between text-xs text-gray-400">
+    <span>IVA incluido (21%)</span>
+    <span>{iva.toFixed(2).replace('.', ',')}€</span>
+  </div>
+</div>
               </div>
 
               {/* Child warning */}
