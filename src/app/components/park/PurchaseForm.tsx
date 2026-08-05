@@ -168,7 +168,7 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose, onSuccess
            <span className="text-[#e8003a]">{total.toFixed(2).replace('.', ',')}€</span>
            </div>
 
-       <div className="flex justify-between text-gray-500">
+       <div className="flex justify-between text-gray-300">
            <span>IVA (21%)</span><span>{iva.toFixed(2).replace('.', ',')}€</span>
        </div>
               
