@@ -172,6 +172,8 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose, onSuccess
            <span>IVA (21%)</span><span>{iva.toFixed(2).replace('.', ',')}€</span>
        </div>
               
+              </div> 
+              
 
               {/* Child warning */}
               {hasChild && !hasAdult && (
