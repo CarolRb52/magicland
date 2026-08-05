@@ -75,8 +75,8 @@ export function PurchaseForm({ selectedTickets, selectedDate, onClose, onSuccess
   const cvvRef        = useRef<HTMLInputElement>(null);
 
   const subtotal = calcSubtotal(selectedTickets);
-  const iva      = +(subtotal * IVA_RATE).toFixed(2);
-  const total    = +(subtotal + iva + MANAGEMENT_FEE).toFixed(2);
+  const iva      = +(subtotal - subtotal / (1 + IVA_RATE)).toFixed(2); // IVA ya incluido en el precio
+    const total    = +(subtotal + MANAGEMENT_FEE).toFixed(2);
   const lineItems = TICKET_CATALOG.filter(t => selectedTickets[t.id] > 0);
   const hasChild  = selectedTickets.child > 0;
   const hasAdult  = selectedTickets.general > 0 || selectedTickets.vip > 0 || selectedTickets.family > 0;
