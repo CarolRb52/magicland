@@ -285,9 +285,9 @@ export function TicketSelector({ selectedTickets, onTicketChange, onPurchase, se
 
   const adultCount = countAdults(selectedTickets);
   const subtotal   = calcSubtotal(selectedTickets);
-  const iva        = +(subtotal * IVA_RATE).toFixed(2);
-    const fee     = subtotal > 0 ? MANAGEMENT_FEE : 0;
-      const total   = +(subtotal + iva + fee).toFixed(2);
+  const iva      = +(subtotal - subtotal / (1 + IVA_RATE)).toFixed(2); // IVA ya incluido en el precio
+      const fee      = subtotal > 0 ? MANAGEMENT_FEE : 0;
+    const total    = +(subtotal + fee).toFixed(2);
   const totalQty   = Object.values(selectedTickets).reduce((a, b) => a + b, 0);
   const onlyKids   = selectedTickets.child > 0 && adultCount === 0;
 
